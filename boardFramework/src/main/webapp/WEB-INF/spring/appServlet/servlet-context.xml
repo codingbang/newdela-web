@@ -13,7 +13,7 @@
 	<mvc:annotation-driven />
   <mvc:default-servlet-handler/>
   
-  <context:component-scan base-package="com.bit.board.**.controller"/>
+  <context:component-scan base-package="com.bit.**.controller"/>
   
 
   <mvc:annotation-driven>

@@ -86,7 +86,7 @@
 			</li>
 		</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="gettingstarted.html">회원가입</a></li>
+				<li><a href="/member/join.bit">회원가입</a></li>
 				<li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
 			</ul>
 			<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
