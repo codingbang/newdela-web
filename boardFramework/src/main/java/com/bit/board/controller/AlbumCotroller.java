@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import com.bit.board.admin.model.BoardListDto;
 import com.bit.board.model.AlbumDto;
 import com.bit.board.service.AlbumService;
 import com.bit.common.service.CommonService;
@@ -45,6 +46,8 @@ public class AlbumCotroller {
     PageNavigation navigation = commonService.makePageNavigation(param);
     navigation.setRoot("/board");
     navigation.makeNavigator();
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    mv.addObject("menu", menuList);
     
     mv.addObject("articlelist", list);
     mv.addObject("navigator", navigation);
@@ -53,12 +56,16 @@ public class AlbumCotroller {
   }
   
   @RequestMapping(value="write.bit", method=RequestMethod.GET)
-  public String write(@RequestParam Map<String, String> param) {
+  public String write(@RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     return "albumboard/write";
   }
   
   @RequestMapping(value="write.bit", method=RequestMethod.POST)
   public String write(AlbumDto albumDto, @RequestParam("picture") MultipartFile multipartFile, HttpSession session, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       albumDto.setId(memberDto.getId());
