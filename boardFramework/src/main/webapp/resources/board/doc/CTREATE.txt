@@ -1,0 +1,47 @@
+CREATE TABLE MEMBERS (
+	m_code NUMBER NOT NULL, /* 회원코드 */
+	m_id VARCHAR2(20) NOT NULL, /* 아이디 */
+	m_name VARCHAR2(20) NOT NULL, /* 이름 */
+	m_pw VARCHAR2(100) NOT NULL, /* 비밀번호 */
+	m_email VARCHAR2(100) NOT NULL, /* 새 컬럼 */
+	m_birth DATE NOT NULL, /* 생년월일 */
+	m_gender NUMBER NOT NULL, /* 성별 */
+	m_tel VARCHAR2(20) NOT NULL, /* 전화번호 */
+	m_postcode VARCHAR2(20) NOT NULL, /* 우편번호 */
+	m_address1 VARCHAR2(100) NOT NULL, /* 주소 */
+	m_address2 VARCHAR2(100) NOT NULL, /* 상세주소 */
+	m_regdate DATE NOT NULL /* 가입일 */
+);
+
+
+ 
+// 프라이머리 키 
+CREATE UNIQUE INDEX PK_MEMBERS
+	ON MEMBERS (
+		m_code ASC
+	);
+
+// 프라이머리 키 설정
+ALTER TABLE MEMBERS
+	ADD
+		CONSTRAINT PK_MEMBERS
+		PRIMARY KEY (
+			m_code 
+		);
+
+
+-- BOARD에 MCODE가 있다는 가정하에 참조키
+ALTER TABLE MEMBERS
+    ADD
+        CONSTRAINT FK_BOARD_TO_MEMBERS
+        FOREIGN KEY (
+            m_code 
+        )
+        REFERENCES BOARD (
+            m_code 
+        );
+
+// 시퀀스 설정
+CREATE SEQUENCE MEMBERS_MCODE
+START WITH 1 INCREMENT BY 1 NOCACHE;
+
