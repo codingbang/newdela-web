@@ -1,0 +1,76 @@
+pj : boardFramework
+  - src
+    - com.cobang.board.admin.controller
+      - BoardAdminCotroller.java
+    
+    - com.cobang.board.admin.dao
+      - BoardAdminDao.java (I)
+      
+    - com.cobang.board.admin.service
+      - BoardAdminService.java (I)
+      - BoardAdminServiceImpl.java
+      
+    - com.cobang.board.admin.model
+      - BoardTypeDto.java
+      - CategoryDto.java
+      - BoardListDto.java
+      
+    - com.cobang.board.cotroller
+      - AlbumCotroller.java
+      - BbsCotroller.java
+      - BoardCotroller.java
+      - ReboardCotroller.java
+      - MemoCotroller.java
+    
+    - com.cobang.board.dao
+      - AlbumDao.java (I)
+      - BbsDao.java (I)
+      - BoardDao.java (I)
+      - ReboardDao.java (I)
+      - MemoDao.java (I)
+    
+    - com.cobang.board.service
+      - AlbumService.java (I)
+      - AlbumServiceImpl.java
+      - BbsService.java (I)
+      - BbsServiceImpl.java
+      - BoardService.java (I)
+      - BoardServiceImpl.java
+      - ReboardService.java (I)
+      - ReboardServiceImpl.java
+      - MemoService.java (I)
+      - MemoServiceImpl.java
+    
+    - com.cobang.board.common.dao
+      - CommonDao.java (I)
+    
+    - com.cobang.board.common.service
+      - CommonService.java (I)
+      - CommonServiceImpl.java
+      
+    - com.cobang.board.model
+      - AlbumDto.java
+      - BbsDto.java
+      - BoardDto.java
+      - ReboardDto.java
+      - MemoDto.java
+      
+    - com.cobang.config.mybatis
+    
+    - com.cobang.util
+      - pageNavigation.java
+    
+  
+  - web
+    - css, img, js
+    - doc : 각종문서.(참고문서)
+    -------------------jsp-------------------
+    - common : public.jsp
+    - admin : 게시판 관리자
+      - boardmenu.jsp
+    - album : 사진게시판
+    - bbs : 자료실
+    - board : 공지사항, 한줄게시판, 일반게시판
+    - reboard : 답변게시판 (reply.jsp)
+    
+    - index.jsp

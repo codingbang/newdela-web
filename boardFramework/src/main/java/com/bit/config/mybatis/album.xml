@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit.board.dao.AlbumDao"> 
+
+  <insert id="WriteArticle" parameterType="albumDto">
+    INSERT  ALL
+      INTO board (seq, name, id, email, subject, content, hit, logtime, bcode)
+      VALUES (#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+      
+      INTO album (aseq, seq, orign_picture, save_picture, savefolder, type)
+      VALUES (album_aseq.nextval, #{seq}, #{orignPicture}, #{savePicture}, #{saveFolder}, 0)
+    SELECT * FROM dual
+  </insert>
+
+</mapper>

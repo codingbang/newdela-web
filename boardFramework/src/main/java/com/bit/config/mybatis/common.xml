@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit.common.dao.CommonDao">
+ 
+  <select id="getNextSeq" resultType="int">
+      SELECT board_seq.nextval 
+      FROM dual
+  </select>
+  
+  <update id="updateHit" parameterType="int">
+    UPDATE board
+    SET hit = hit + 1
+    WHERE seq = #{seq}
+  </update>
+  
+  <select id="getNewArticleCount" parameterType="int" resultType="int">
+    SELECT COUNT(seq) 
+    FROM board 
+    WHERE bcode = #{bcode}
+    AND TO_CHAR(logtime, 'yymmdd') = TO_CHAR(SYSDATE, 'yymmdd')
+    
+  </select>
+  
+  <select id="getTotalArticleCount" parameterType="map" resultType="int">
+    SELECT COUNT(seq) 
+    FROM board b
+    WHERE bcode = #{bcode}
+    <if test="word != null and word != ''">
+      <choose>
+        <when test="key == 'subject'">
+          AND b.subject like '%'||#{word}||'%'
+        </when>
+        <otherwise>
+          AND ${key} = #{word}
+        </otherwise>
+      </choose>
+    </if>
+  </select>
+  
+</mapper>

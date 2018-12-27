@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.bit.board.dao.MemoDao">
+
+  <insert id="writeMemo" parameterType="memoDto">
+    INSERT INTO memo (mseq, seq, id, name, mcontent, mtime)
+    VALUES (memo_mseq.nextval, #{seq}, #{id}, #{name}, #{mcontent}, sysdate )
+  </insert>
+  
+  <select id="listMemo" parameterType="int" resultType="memoDto">
+    SELECT mseq, seq, id, name, mcontent, mtime
+    FROM memo
+    WHERE seq = #{seq}
+    ORDER BY mtime
+  </select>
+  
+  
+  <update id="modifyMemo" parameterType="memoDto">
+    UPDATE memo
+    SET mcontent = #{mcontent}
+    WHERE mseq = #{mseq}
+  </update>
+  
+  <update id="deleteMemo" parameterType="int">
+    DELETE FROM memo
+    WHERE mseq = #{mseq}
+  </update>
+
+
+</mapper>
