@@ -9,5 +9,5 @@ memberDto.setName("이종현");
 memberDto.setEmail("test@test.com");
 
 session.setAttribute("userInfo", memberDto);
-response.sendRedirect(request.getContextPath()+"/badmin/boardmenu.bit");
+response.sendRedirect(request.getContextPath()+"/boardmain.bit");
 %>

@@ -1,9 +1,12 @@
 package com.bit.common.service;
 
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.bit.board.admin.dao.BoardAdminDao;
+import com.bit.board.admin.model.BoardListDto;
 import com.bit.common.dao.CommonDao;
 import com.bit.util.BoardConstance;
 import com.bit.util.PageNavigation;
@@ -32,6 +35,11 @@ public class CommonServiceImpl implements CommonService {
     navigation.setNowEnd((totalPageCount-1) / pageSize * pageSize < pg);
     
     return navigation;
+  }
+  
+  @Override
+  public List<BoardListDto> getBoardMenu() {
+    return sqlSession.getMapper(BoardAdminDao.class).getBoardMenu();
   }
 
 }

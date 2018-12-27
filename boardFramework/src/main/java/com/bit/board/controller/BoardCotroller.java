@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import com.bit.board.admin.model.BoardListDto;
 import com.bit.board.model.BoardDto;
 import com.bit.board.service.BoardService;
 import com.bit.common.service.CommonService;
@@ -33,6 +34,8 @@ public class BoardCotroller {
     PageNavigation navigation = commonService.makePageNavigation(param);
     navigation.setRoot("/board");
     navigation.makeNavigator();
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    mv.addObject("menu", menuList);
     
     mv.addObject("articlelist", list);
     mv.addObject("navigator", navigation);
@@ -41,12 +44,17 @@ public class BoardCotroller {
   }
     
   @RequestMapping(value="write.bit", method=RequestMethod.GET)
-  public String write(@RequestParam Map<String, String> param) {
+  public String write(@RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     return "board/write";
   }
   
   @RequestMapping(value="write.bit", method=RequestMethod.POST)
   public String write(BoardDto boardDto, HttpSession session, @RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
+    
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       boardDto.setId(memberDto.getId());
@@ -68,6 +76,8 @@ public class BoardCotroller {
   
   @RequestMapping(value="view.bit", method=RequestMethod.GET)
   public String view(@RequestParam int seq, HttpSession session, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       BoardDto boardDto = boardService.viewArticle(seq);

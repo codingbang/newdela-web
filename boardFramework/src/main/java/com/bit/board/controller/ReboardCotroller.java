@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import com.bit.board.admin.model.BoardListDto;
 import com.bit.board.model.ReboardDto;
 import com.bit.board.service.ReboardService;
 import com.bit.common.service.CommonService;
@@ -33,7 +34,8 @@ public class ReboardCotroller {
     PageNavigation navigation = commonService.makePageNavigation(param);
     navigation.setRoot("/board");
     navigation.makeNavigator();
-    
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    mv.addObject("menu", menuList);
     mv.addObject("articlelist", list);
     mv.addObject("navigator", navigation);
     mv.setViewName("reboard/list");
@@ -41,12 +43,16 @@ public class ReboardCotroller {
   }
 	
   @RequestMapping(value="write.bit", method=RequestMethod.GET)
-  public String write(@RequestParam Map<String, String> param) {
+  public String write(@RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     return "reboard/write";
   }
   
   @RequestMapping(value="write.bit", method=RequestMethod.POST)
   public String write(ReboardDto reboardDto, HttpSession session, @RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       reboardDto.setId(memberDto.getId());
@@ -68,6 +74,8 @@ public class ReboardCotroller {
   
   @RequestMapping(value="view.bit", method=RequestMethod.GET)
   public String view(@RequestParam int seq, HttpSession session, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       ReboardDto reboardDto = reboardService.viewArticle(seq);
@@ -79,6 +87,8 @@ public class ReboardCotroller {
   
   @RequestMapping(value="reply.bit", method=RequestMethod.GET)
   public String reply(@RequestParam int seq, HttpSession session, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       ReboardDto reboardDto = reboardService.viewArticle(seq);
@@ -89,6 +99,8 @@ public class ReboardCotroller {
   
   @RequestMapping(value="reply.bit", method=RequestMethod.POST)
   public String reply(ReboardDto reboardDto, HttpSession session, @RequestParam Map<String, String> param, Model model) {
+    List<BoardListDto> menuList = commonService.getBoardMenu();
+    model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       reboardDto.setId(memberDto.getId());
