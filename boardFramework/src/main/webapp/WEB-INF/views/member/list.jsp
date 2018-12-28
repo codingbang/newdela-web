@@ -2,11 +2,55 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/public.jsp" %>
 <style>
-.memberListTBody tr td {
+#memberListTBody tr td {
 	font-size: 11pt;
 }
 
 </style>
+
+<script>
+$(document).ready(function() {
+	getMemberList();
+	
+	
+	//회원 목록 가져오기
+	function getMemberList() {
+		$.ajax({
+			url : '${root}/member/list',
+			type : 'GET',
+			contentType : 'application/json;charset=UTF-8',
+			dataType : 'json',
+			success : function(data) {
+				makeMemberList(data);
+			}
+		});
+	}//end getMemberList
+	
+	//회원목록 html생성
+	function makeMemberList(members) {
+		$("#memberListTBody").empty();
+		var memberlist = members.memberslist;
+		var strHtml = '';
+		var length = memberlist.length;
+		
+		for (var i = 0; i < length; i++) {
+			strHtml += '<tr>';
+			strHtml += '	<td class="text-center">'+ memberlist[i].m_code +'</td>';
+			strHtml += '	<td>' + memberlist[i].m_id + '</td>';
+			strHtml += '	<td class="view" member-mcode="'+ memberlist[i].m_code +'">' + memberlist[i].m_name + '</td>';
+			strHtml += '	<td>' + memberlist[i].m_tel + '</td>';
+			strHtml += '	<td>' + memberlist[i].m_regdate + '</td>';
+			strHtml += '	<td align="center">';
+			strHtml += ' 		<input type="button" class="btn btn-danger btn-sm DeleteBtn" value="탈퇴">';
+			strHtml += '	</td>';
+			strHtml += '</tr>';
+		}
+		$("#memberListTBody").append(strHtml);
+	}//end makeMemberList
+	
+});//end script
+
+</script>
 <body>
 
 <!-- Container ======================================================================================= -->
@@ -46,7 +90,7 @@
                                 <th class="text-center">관리</th>
                             </tr>
                             </thead>
-                            <tbody class="memberListTBody">
+                            <tbody id="memberListTBody">
                             <!--<tr><td colspan="5" class="text-center">가입한 회원이 없습니다.</td></tr>-->
                             <tr>
                                 <td class="text-center">1</td>

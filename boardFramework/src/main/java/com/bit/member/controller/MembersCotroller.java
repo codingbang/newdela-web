@@ -1,27 +1,19 @@
 package com.bit.member.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.board.admin.model.BoardListDto;
 import com.bit.common.service.CommonService;
 import com.bit.member.model.MembersDto;
-import com.bit.member.model.PostDto;
 import com.bit.member.service.MemberService;
-import com.google.gson.Gson;
 
 
 @Controller
@@ -52,9 +44,15 @@ public class MembersCotroller {
     return map;
   }
   
-  @RequestMapping(value="/member/list", method=RequestMethod.GET)
-  public String MemberListForm() {
+  @RequestMapping(value="/member/listform", method=RequestMethod.GET)
+  public String memberListForm() {
     return "member/list";
+  }
+  
+  @RequestMapping(value="/member/list", method=RequestMethod.GET)
+  public @ResponseBody String getMemberList() {
+    String memberslist = memberService.listMembers();
+    return memberslist;
   }
   
   

@@ -10,5 +10,13 @@
       INTO members (m_code, m_id, m_name, m_pwd, m_email, m_birth, m_gender, m_tel, m_postcode, m_address1, m_address2, m_regdate)
       VALUES (members_m_code.nextval, #{m_id}, #{m_name}, #{m_pwd}, #{m_email}, #{m_birth}, #{m_gender}, #{m_tel}, #{m_postcode}, #{m_address1}, #{m_address2}, sysdate)
   </insert>
+  
+  <select id="listMembers" resultType="membersDto">
+    SELECT m_code, m_id, m_name, m_tel, to_char(m_regdate,'yyyy-mm-dd') as m_regdate
+    FROM members
+    ORDER BY m_regdate
+  </select>
+  
+  
 
 </mapper>

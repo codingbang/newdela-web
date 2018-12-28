@@ -32,7 +32,7 @@ $(document).ready(function() {
 			data : parameter,
 			success : function(data) {
 				if(data.isSuccess == 'true') {
-					location.href = "${root}/member/list";
+					location.href = "${root}/member/listform";
 					//$(location).attr('href', 'member/list');
 				}
 			}

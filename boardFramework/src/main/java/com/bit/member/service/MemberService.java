@@ -5,5 +5,6 @@ import com.bit.member.model.MembersDto;
 public interface MemberService {
   
   int insertMembers(MembersDto membersDto);
+  String listMembers();
 
 }
