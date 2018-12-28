@@ -87,29 +87,9 @@
 		</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/member">회원가입</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
+				<li><a href="/member/form.bit">로그인</a></li>
 			</ul>
-			<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true"
-				style="display: none;">
-				<div class="modal-dialog">
-					<div class="loginmodal-container">
-						<h1>Login to Your Account</h1>
-						<br>
-						<form>
-							<input type="text" name="user" placeholder="Username"> <input
-								type="password" name="pass" placeholder="Password"> <input
-								type="submit" name="login" class="login loginmodal-submit"
-								value="Login">
-						</form>
-
-						<div class="login-help">
-							<a href="gettingstarted.html">Register</a> - <a href="#">Forgot
-								Password</a>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>

@@ -149,7 +149,7 @@
 						<!--PAGE--> ${navigator.navigator }
 					</td>
 					<td nowrap class="stext"><b>${navigator.pageNo }</b> /
-						${navigator.totalPageCount } pages</td>
+						${navigator.totalPageCount} pages</td>
 				</tr>
 			</table>
 			<br>

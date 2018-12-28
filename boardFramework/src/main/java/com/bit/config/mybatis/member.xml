@@ -5,6 +5,22 @@
   
 <mapper namespace="com.bit.member.dao.MemberDao"> 
 
+<resultMap type="membersDto" id="membersMap">
+    <id column="m_code" property="m_code"/>
+    <result column="m_id" property="m_id"/>
+    <result column="m_name" property="m_name"/>
+    <result column="m_password" property="m_password"/>
+    <result column="m_email" property="m_email"/>
+    <result column="m_birth" property="m_birth"/>
+    <result column="m_gender" property="m_gender"/>
+     <result column="m_tel" property="m_tel"/>
+    <result column="m_postcode" property="m_postcode"/>
+    <result column="m_address1" property="m_address1"/>
+    <result column="m_address2" property="m_address2"/>
+    <result column="m_regdate" property="m_regdate"/>
+  </resultMap>
+
+
   <insert id="insertMembers" parameterType="membersDto">
     INSERT
       INTO members (m_code, m_id, m_name, m_pwd, m_email, m_birth, m_gender, m_tel, m_postcode, m_address1, m_address2, m_regdate)
@@ -18,5 +34,21 @@
   </select>
   
   
+  
+  <delete id="deleteMember" parameterType="int">
+   DELETE from members
+   WHERE m_code = #{m_code}
+  </delete>
+  
+
+
+ 	<select id="findByIdPassword" resultType="membersDto" parameterType="map">
+    select m_code, m_id, m_name, m_pwd, m_email, m_regdate
+    from members
+    where m_id=#{m_id} and m_pwd=#{m_pwd}
+  </select>
+
+
+
 
 </mapper>

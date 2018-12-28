@@ -40,13 +40,29 @@ $(document).ready(function() {
 			strHtml += '	<td class="view" member-mcode="'+ memberlist[i].m_code +'">' + memberlist[i].m_name + '</td>';
 			strHtml += '	<td>' + memberlist[i].m_tel + '</td>';
 			strHtml += '	<td>' + memberlist[i].m_regdate + '</td>';
-			strHtml += '	<td align="center">';
-			strHtml += ' 		<input type="button" class="btn btn-danger btn-sm DeleteBtn" value="탈퇴">';
+			strHtml += '	<td align="center" m_code="'+memberlist[i].m_code+'">';
+			strHtml += ' 		<input type="button" class="btn btn-danger btn-sm DeleteBtn"  value="탈퇴">';
 			strHtml += '	</td>';
 			strHtml += '</tr>';
 		}
 		$("#memberListTBody").append(strHtml);
 	}//end makeMemberList
+	
+	//회원 삭제
+	$(document).on("click",".DeleteBtn",function(){
+		if (confirm("삭제하시겠습니까?")) {
+			var m_code = $(this).parent("td").attr("m_code");
+			$.ajax({
+			     url : '${root}/member/'+m_code,
+			     type : 'DELETE',
+			     contentType : 'application/json;charset=UTF-8',
+			     dataType : 'json',
+			     success : function(data) {
+			    	 makeMemberList(data);
+			     }
+			});
+		}
+	});//end deleteMember
 	
 });//end script
 

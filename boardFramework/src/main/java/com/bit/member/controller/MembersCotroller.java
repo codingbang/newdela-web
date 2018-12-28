@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,27 +13,26 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.board.admin.model.BoardListDto;
-import com.bit.common.dao.CommonDao;
 import com.bit.common.service.CommonService;
 import com.bit.member.model.MembersDto;
 import com.bit.member.model.PostDto;
 import com.bit.member.service.MemberService;
-import com.bit.util.PageNavigation;
 import com.google.gson.Gson;
 
 
 @Controller
 public class MembersCotroller {
-  
+
   @Autowired
   private CommonService commonService;
-  
+
   @Autowired
   private MemberService memberService;
   
@@ -66,25 +66,22 @@ public class MembersCotroller {
     return memberslist;
   }
   
+
   @RequestMapping(value="/member/view", method=RequestMethod.GET)
   public @ResponseBody String getMemberView() {
     String memberslist = memberService.listMembers();
     return memberslist;
   }
   
-  //우편번호 API Parsing TEST
-  @RequestMapping(value = "postSearch.bit", method = RequestMethod.GET)
-  public String post() {
 
-      return "member/postSearch";
+  @RequestMapping(value="/member/{m_code}", method=RequestMethod.DELETE)
+  public @ResponseBody String deleteMember(@PathVariable(value="m_code")int m_code) {
+    memberService.deleteMember(m_code);
+	String memberslist = memberService.listMembers();
+    return memberslist;
   }
-  
-  @RequestMapping(value = "searchPopup", method = RequestMethod.GET)
-  public String searchPopup() {
 
-      return "member/searchPopup";
-  }
-  
+ 
 
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
   public static final String ZIPCODE_API_URL = "https://biz.epost.go.kr/KpostPortal/openapi";
@@ -169,5 +166,37 @@ public class MembersCotroller {
 
   }
 
-	
+
+
+  @RequestMapping(value = "form.bit")
+  public String loginForm() {
+
+    return "member/form";
+  }
+
+
+
+  @RequestMapping(value = "login.bit", method = RequestMethod.POST)
+  public String login(String m_id, String m_pwd, HttpSession session) {
+    System.out.println("입력시작");
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put("m_id", m_id);
+    params.put("m_pwd", m_pwd);
+
+    System.out.printf(m_id, m_pwd);
+    MembersDto membersDto = memberService.findByIdPassword(params);
+
+    System.out.println("파람값: " + membersDto);
+
+    if (membersDto != null) {
+      session.setAttribute("loginUser", membersDto);
+      System.out.println("로그인 성공");
+      return "member/login";
+    } else {
+      session.invalidate();
+      return "redirect:form";
+    }
+  }
+
+
 }
