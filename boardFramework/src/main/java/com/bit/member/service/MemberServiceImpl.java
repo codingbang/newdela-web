@@ -1,6 +1,7 @@
 package com.bit.member.service;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +42,11 @@ public class MemberServiceImpl implements MemberService {
     }
     json.put("memberslist", jsonArr);
     return json.toString();
+  }
+
+  @Override
+  public MembersDto findByIdPassword(Map<String, Object> params) {
+    return sqlSession.getMapper(MemberDao.class).findByIdPassword(params);
   }
 
 }

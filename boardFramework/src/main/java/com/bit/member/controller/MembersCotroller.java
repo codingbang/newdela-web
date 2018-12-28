@@ -3,6 +3,7 @@ package com.bit.member.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,10 @@ import com.bit.member.service.MemberService;
 
 @Controller
 public class MembersCotroller {
-  
+
   @Autowired
   private CommonService commonService;
-  
+
   @Autowired
   private MemberService memberService;
   
@@ -117,5 +118,37 @@ public class MembersCotroller {
 
   }*/
 
-	
+
+
+  @RequestMapping(value = "form.bit")
+  public String loginForm() {
+
+    return "member/form";
+  }
+
+
+
+  @RequestMapping(value = "login.bit", method = RequestMethod.POST)
+  public String login(String m_id, String m_pwd, HttpSession session) {
+    System.out.println("입력시작");
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("m_id", m_id);
+    params.put("m_pwd", m_pwd);
+
+    System.out.printf(m_id, m_pwd);
+    MembersDto membersDto = memberService.findByIdPassword(params);
+
+    System.out.println("파람값: " + membersDto);
+
+    if (membersDto != null) {
+      session.setAttribute("loginUser", membersDto);
+      System.out.println("로그인 성공");
+      return "member/login";
+    } else {
+      session.invalidate();
+      return "redirect:form";
+    }
+  }
+
+
 }
