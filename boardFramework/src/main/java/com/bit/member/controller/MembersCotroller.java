@@ -56,21 +56,28 @@ public class MembersCotroller {
   }
   
   @RequestMapping(value="/member/listform", method=RequestMethod.GET)
-  public String memberListForm() {
+  public String memberListForm(Model model) {
+    List<BoardListDto> list = commonService.getBoardMenu();
+    model.addAttribute("menu", list);
     return "member/list";
   }
   
   @RequestMapping(value="/member/list", method=RequestMethod.GET)
-  public @ResponseBody String getMemberList() {
+  public @ResponseBody String getMemberList(Model model) {
+    List<BoardListDto> list = commonService.getBoardMenu();
+    model.addAttribute("menu", list);
     String memberslist = memberService.listMembers();
     return memberslist;
   }
   
 
-  @RequestMapping(value="/member/view", method=RequestMethod.GET)
-  public @ResponseBody String getMemberView() {
-    String memberslist = memberService.listMembers();
-    return memberslist;
+  @RequestMapping(value="/member/viewForm", method=RequestMethod.GET)
+  public String getMemberView(int m_code, Model model) {
+    List<BoardListDto> list = commonService.getBoardMenu();
+    model.addAttribute("menu", list);
+    MembersDto membersDto =  memberService.getMember(m_code);
+    model.addAttribute("member",membersDto);
+    return "member/view";
   }
   
 

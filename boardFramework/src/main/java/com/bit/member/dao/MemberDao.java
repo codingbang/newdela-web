@@ -12,6 +12,8 @@ public interface MemberDao {
 
   int deleteMember(int m_code);
   
+  MembersDto getMember(int m_code);
+  
   MembersDto findByIdPassword(Map<String, Object> params);
   
 }

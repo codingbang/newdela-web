@@ -36,8 +36,8 @@ $(document).ready(function() {
 		for (var i = 0; i < length; i++) {
 			strHtml += '<tr>';
 			strHtml += '	<td class="text-center">'+ memberlist[i].m_code +'</td>';
-			strHtml += '	<td>' + memberlist[i].m_id + '</td>';
-			strHtml += '	<td class="view" member-mcode="'+ memberlist[i].m_code +'">' + memberlist[i].m_name + '</td>';
+			strHtml += '	<td class="view" member-mcode="'+ memberlist[i].m_code +'"><a href="#">' + memberlist[i].m_id + '</a></td>';
+			strHtml += '	<td>' + memberlist[i].m_name + '</td>';
 			strHtml += '	<td>' + memberlist[i].m_tel + '</td>';
 			strHtml += '	<td>' + memberlist[i].m_regdate + '</td>';
 			strHtml += '	<td align="center" m_code="'+memberlist[i].m_code+'">';
@@ -63,6 +63,12 @@ $(document).ready(function() {
 			});
 		}
 	});//end deleteMember
+	
+	//회원 상세
+	$(document).on("click",".view",function(){
+		var m_code = $(this).attr("member-mcode");
+		location.href="${root}/member/viewForm?m_code="+m_code;
+	});//end viewMember
 	
 });//end script
 
