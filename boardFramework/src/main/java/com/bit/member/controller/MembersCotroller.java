@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,7 +56,14 @@ public class MembersCotroller {
     return memberslist;
   }
   
+  @RequestMapping(value="/member/{m_code}", method=RequestMethod.DELETE)
+  public @ResponseBody String deleteMember(@PathVariable(value="m_code")int m_code) {
+    memberService.deleteMember(m_code);
+	String memberslist = memberService.listMembers();
+    return memberslist;
+  }
   
+
   
   /* //우편번호 API Parsing TEST
   @RequestMapping(value = "postSearch.bit", method = RequestMethod.GET)

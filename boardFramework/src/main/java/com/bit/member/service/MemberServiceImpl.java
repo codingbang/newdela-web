@@ -43,4 +43,11 @@ public class MemberServiceImpl implements MemberService {
     return json.toString();
   }
 
+	@Override
+	public int deleteMember(int m_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(MemberDao.class).deleteMember(m_code);
+	}
+	  
+
 }

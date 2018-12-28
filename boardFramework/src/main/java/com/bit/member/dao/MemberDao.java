@@ -9,4 +9,5 @@ public interface MemberDao {
   
   List<MembersDto> listMembers();
 
+  int deleteMember(int m_code);
 }

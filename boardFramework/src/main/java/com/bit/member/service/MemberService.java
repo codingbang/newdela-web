@@ -6,5 +6,5 @@ public interface MemberService {
   
   int insertMembers(MembersDto membersDto);
   String listMembers();
-
+  int deleteMember(int m_code);
 }

@@ -18,5 +18,11 @@
   </select>
   
   
+  
+  <delete id="deleteMember" parameterType="int">
+   DELETE from members
+   WHERE m_code = #{m_code}
+  </delete>
+  
 
 </mapper>
