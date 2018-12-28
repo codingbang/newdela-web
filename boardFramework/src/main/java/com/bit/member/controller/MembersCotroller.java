@@ -1,19 +1,30 @@
 package com.bit.member.controller;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.board.admin.model.BoardListDto;
+import com.bit.common.dao.CommonDao;
 import com.bit.common.service.CommonService;
 import com.bit.member.model.MembersDto;
+import com.bit.member.model.PostDto;
 import com.bit.member.service.MemberService;
+import com.bit.util.PageNavigation;
+import com.google.gson.Gson;
 
 
 @Controller
@@ -55,9 +66,13 @@ public class MembersCotroller {
     return memberslist;
   }
   
+  @RequestMapping(value="/member/view", method=RequestMethod.GET)
+  public @ResponseBody String getMemberView() {
+    String memberslist = memberService.listMembers();
+    return memberslist;
+  }
   
-  
-  /* //우편번호 API Parsing TEST
+  //우편번호 API Parsing TEST
   @RequestMapping(value = "postSearch.bit", method = RequestMethod.GET)
   public String post() {
 
@@ -74,48 +89,85 @@ public class MembersCotroller {
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
   public static final String ZIPCODE_API_URL = "https://biz.epost.go.kr/KpostPortal/openapi";
   
-  @RequestMapping(value = "zip_codeList", method = RequestMethod.POST, produces = "text/planin;charset=UTF-8")
-  public @ResponseBody String zip_codeList(@RequestParam("query") String query) throws Exception {
+  @RequestMapping(value = "postcodelist", method = RequestMethod.POST, produces = "text/planin;charset=UTF-8")
+  public @ResponseBody String postCodeList(@RequestParam Map<String, String> param) throws Exception {
+    
       Map<String, Object> paramMap = new HashMap<String, Object>();
       StringBuilder queryUrl = new StringBuilder();
+      String query = param.get("query");
+      int currentPage = Integer.parseInt(param.get("currentPage"));
+
       queryUrl.append(ZIPCODE_API_URL);
       queryUrl.append("?regkey=");
       queryUrl.append(ZIPCODE_API_KEY);
       queryUrl.append("&target=");
       queryUrl.append("postNew");
       queryUrl.append("&query=");
-      queryUrl.append(query.replaceAll(" ", ""));
-      System.out.println(queryUrl);
-      // document 선언
+      queryUrl.append(URLEncoder.encode(query.replaceAll(" ", ""), "EUC-KR"));
+      queryUrl.append("&countPerPage=");
+      queryUrl.append("10");
+      queryUrl.append("&currentPage=");
+      queryUrl.append(currentPage);
+      
       Document document = Jsoup.connect(queryUrl.toString()).get();
-      System.out.println(document);
-      // errorCode 선언
       String errorCode = document.select("error_code").text();
       
-      if(null == errorCode || "".equals(errorCode))
-      {
-          Elements elements = document.select("item");
+      int totalCount;
+      int totalPage;
+      int countPerPage;
+      
+      if(null == errorCode || "".equals(errorCode)) {
+          Elements pageInfoElement = document.select("pageinfo");
+          
+          totalCount = Integer.parseInt(pageInfoElement.select("totalCount"). text());
+          totalPage = Integer.parseInt(pageInfoElement.select("totalPage").text())-1;
+          countPerPage = Integer.parseInt(pageInfoElement.select("countPerPage").text());
+
+    
+          if (totalCount % countPerPage > 0) {
+              totalPage++;
+          }
+
+          if (totalPage < currentPage) {
+              currentPage = totalPage;
+          }
+
+          int startPage = ((currentPage - 1) / countPerPage) * countPerPage + 1;
+          int endPage = startPage + countPerPage - 1;
+          
+          if (endPage > totalPage) {
+              endPage = totalPage;
+          }
+          
+          
+          Elements itemElements = document.select("item");
           List<PostDto> list = new ArrayList<PostDto>();
           PostDto postDto = null;
           
-          for(Element element : elements){
+          for(Element element : itemElements){
               postDto = new PostDto();
               postDto.setZipcode(element.select("postcd").text());
               postDto.setAddress(element.select("address").text());
               list.add(postDto);
           }
-          // list 결과 put
           paramMap.put("postlist", list);
+          paramMap.put("totalCount", totalCount);
+          paramMap.put("totalPage", totalPage);
+          paramMap.put("countPerPage", countPerPage);
+          paramMap.put("currentPage", currentPage);
+          paramMap.put("startPage", startPage);
+          paramMap.put("endPage", endPage);
       }else{
           String errorMessage = document.select("message").text();
           paramMap.put("errorCode", errorCode);
           paramMap.put("errorMessage", errorMessage);
       }
-      System.out.println((new Gson()).toJson(paramMap));
+      
+      
       // Gson형태로 paramMap 리턴
       return (new Gson()).toJson(paramMap);
 
-  }*/
+  }
 
 	
 }

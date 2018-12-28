@@ -27,7 +27,7 @@ public class BoardMainCotroller {
     memberDto.setName("이종현");
     memberDto.setEmail("test@test.com");
     session.setAttribute("userInfo", memberDto);
-    return "common/public";
+    return "main";
   }
 
 	

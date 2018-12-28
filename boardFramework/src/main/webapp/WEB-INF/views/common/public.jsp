@@ -47,13 +47,13 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"> 메인LOGO</a>
+			<a class="navbar-brand" href="/"> 메인LOGO</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="#">회원관리</a></li>
+				<li><a href="/member/listform">회원관리</a></li>
 				<li><a href="#">미디어관리</a></li>
 				<li><a href="#">대출관리</a></li>
 			</ul>
