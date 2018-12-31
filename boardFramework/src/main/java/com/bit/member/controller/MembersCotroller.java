@@ -198,5 +198,13 @@ public class MembersCotroller {
       return "redirect:loginForm";
     }
   }
+  
+  @RequestMapping("/member/logout")
+  public String logout(HttpSession session) {
+    session.invalidate();
+    
+    return "redirect:loginForm";
+    
+  }
 
 }

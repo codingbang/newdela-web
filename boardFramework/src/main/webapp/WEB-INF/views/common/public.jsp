@@ -89,7 +89,7 @@
 		<c:choose>
 			<c:when test="${loginUser !=null}">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/member/loginOut">로그아웃(${loginUser.m_name})</a></li>
+					<li><a href="/member/logout">로그아웃(${loginUser.m_name})</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">설정<span class="caret"></span></a>
 						<ul class="dropdown-menu">
