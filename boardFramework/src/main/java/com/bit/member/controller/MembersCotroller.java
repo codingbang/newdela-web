@@ -175,35 +175,28 @@ public class MembersCotroller {
 
 
 
-  @RequestMapping(value = "form.bit")
+  @RequestMapping(value = "/member/loginForm")
   public String loginForm() {
 
-    return "member/form";
+    return "member/loginForm";
   }
 
 
 
-  @RequestMapping(value = "login.bit", method = RequestMethod.POST)
+  @RequestMapping(value = "/member/login", method = RequestMethod.POST)
   public String login(String m_id, String m_pwd, HttpSession session) {
-    System.out.println("입력시작");
     Map<String, Object> params = new HashMap<String, Object>();
     params.put("m_id", m_id);
     params.put("m_pwd", m_pwd);
-
-    System.out.printf(m_id, m_pwd);
     MembersDto membersDto = memberService.findByIdPassword(params);
-
-    System.out.println("파람값: " + membersDto);
 
     if (membersDto != null) {
       session.setAttribute("loginUser", membersDto);
-      System.out.println("로그인 성공");
-      return "member/login";
+      return "member/list";
     } else {
       session.invalidate();
-      return "redirect:form";
+      return "redirect:loginForm";
     }
   }
-
 
 }

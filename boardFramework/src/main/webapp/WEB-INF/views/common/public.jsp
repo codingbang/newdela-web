@@ -87,7 +87,7 @@
 		</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/member">회원가입</a></li>
-				<li><a href="/member/form.bit">로그인</a></li>
+				<li><a href="/member/loginForm">로그인</a></li>
 			</ul>
 			
 		</div>
