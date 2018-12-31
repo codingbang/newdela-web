@@ -173,15 +173,11 @@ public class MembersCotroller {
 
   }
 
-
-
   @RequestMapping(value = "/member/loginForm")
   public String loginForm() {
 
     return "member/loginForm";
   }
-
-
 
   @RequestMapping(value = "/member/login", method = RequestMethod.POST)
   public String login(String m_id, String m_pwd, HttpSession session) {
@@ -200,11 +196,8 @@ public class MembersCotroller {
   }
   
   @RequestMapping("/member/logout")
-  public String logout(HttpSession session) {
+  public void logout(HttpSession session) {
     session.invalidate();
-    
-    return "redirect:loginForm";
-    
   }
 
 }

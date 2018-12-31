@@ -23,6 +23,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 <link rel="stylesheet" href="${root}/css/skin_purple.css" type="text/css">
 <link rel="stylesheet" href="${root}/css/header.css" type="text/css">
+<link rel="stylesheet" href="${root}/css/modal_info.css" type="text/css">
 <script type="text/javascript" src="${root}/js/board.js"></script>
 <script type="text/javascript" src="${root}/js/header.js"></script>
 </head>
@@ -89,7 +90,30 @@
 		<c:choose>
 			<c:when test="${loginUser !=null}">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/member/logout">로그아웃(${loginUser.m_name})</a></li>
+					<li><a href="/member/logout" data-toggle="modal" data-target="#logoutModal">로그아웃(${loginUser.m_name})</a></li>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="logoutModal" role="dialog">
+						<div class="modal-dialog">
+					    
+					    <!-- header -->
+						    <div class="info-header">
+						        <h2 class="info-heading">로그아웃 성공!!</h2>
+						    </div>
+					
+						    <!-- body -->
+						    <div class="info-body">
+						
+						        <p>로그인 페이지로 이동합니다</p>
+						
+						        <div class="row info-btn">
+						            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='loginForm'" >Home</button>
+						        </div>
+						    </div>
+      
+			   			</div>
+  					</div>
+					
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">설정<span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -111,4 +135,5 @@
 	</div>
 	<!-- /.container-fluid -->
 </nav>
-
+</body>
+</html>
