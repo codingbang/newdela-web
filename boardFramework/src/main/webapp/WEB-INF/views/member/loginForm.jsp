@@ -85,7 +85,7 @@ body {
 		</div>
 
 		<!-- form -->
-		<form class="form-signin" action="login.bit" method="post">
+		<form class="form-signin" action="login" method="post">
 			<input type="text" class="form-control" name="m_id" id="inputEmail"
 				placeholder="아이디"> <input type="password"
 				class="form-control" name="m_pwd" id="inputPassword"
@@ -94,7 +94,7 @@ body {
 			<div class="row form-btn">
 				<button id="loginBtn" class="btn btn-large btn-warning"
 					type="submit">로그인</button>
-				<a href="./join.html" class="btn btn-large btn-default">회원가입</a>
+				<a href="/member" class="btn btn-large btn-default">회원가입</a>
 			</div>
 		</form>
 
