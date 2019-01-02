@@ -156,6 +156,15 @@ $(document).ready(function() {
 		};
 		var parameter = JSON.stringify($("#joinForm").serializeObject());
 		
+		var password1 = $("#m_pwd").val();
+		var password2 = $("#m_pwd2").val();
+
+		if (password1 != password2) {
+			alert("password가 일치하지 않습니다.");
+			$("#password1").focus();
+			e.preventDefault();
+		}
+		
 		$.ajax({
 			url : '${root}/member',
 			type : 'POST',
@@ -222,7 +231,7 @@ $(document).ready(function() {
                             <label class="col-lg-1 control-label">비밀번호 확인</label>
 
                             <div class="col-lg-11">
-                                <input type="password" class="form-control" placeholder="비밀번호 확인">
+                                <input type="password" class="form-control" id="m_pwd2" placeholder="비밀번호 확인">
                             </div>
                         </div>
                         <div class="form-group">
