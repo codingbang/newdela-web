@@ -15,21 +15,23 @@
   </insert>
   
   <select id="viewArticle" parameterType="int" resultType="reboardDto">
-    SELECT b.seq, b.content, b.hit, b.bcode, b.logtime, b.m_code, r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply
-		FROM board b, reboard r
+    SELECT b.seq, b.content, b.hit, b.bcode, b.logtime, b.m_code, r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply, m.m_name, m.m_id
+		FROM board b, reboard r, members m
 		WHERE b.seq = r.seq
+		AND	b.m_code = m.m_code
 		AND b.seq = #{seq}
   </select>
   
   <select id="listArticle" parameterType="map" resultType="reboardDto">
     SELECT temp2.*
 		FROM (SELECT rownum rnm, temp.*
-		      FROM (SELECT b.seq, b.subject, b.content, b.hit, b.bcode, b.m_code,
+		      FROM (SELECT b.seq, b.subject, b.content, b.hit, b.bcode, b.m_code, m.m_name, m.m_id,
 		                   DECODE(TO_CHAR(b.logtime, 'yymmdd'), TO_CHAR(SYSDATE, 'yymmdd'), 
 		                          TO_CHAR(b.logtime, 'hh24:mi:ss'), TO_CHAR(b.logtime, 'yy.mm.dd')) logtime, 
 		                   r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply
-		            FROM board b, reboard r
+		            FROM board b, reboard r, members m
 		            WHERE b.seq = r.seq
+		            AND	b.m_code = m.m_code
 		            AND bcode = #{bcode}
 		            <if test="word != null and word != ''">
 		              <choose>

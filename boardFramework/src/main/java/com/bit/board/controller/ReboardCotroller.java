@@ -53,8 +53,7 @@ public class ReboardCotroller {
   public String write(ReboardDto reboardDto, String content, String subject, HttpSession session, @RequestParam Map<String, String> param, Model model) {
     List<BoardListDto> menuList = commonService.getBoardMenu();
     model.addAttribute("menu", menuList);
-    MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
-    System.out.println("세션?"+memberDto.getM_code());
+    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       reboardDto.setMcode(memberDto.getM_code());
       System.out.println(reboardDto.getMcode());
