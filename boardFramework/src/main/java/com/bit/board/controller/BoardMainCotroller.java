@@ -22,11 +22,6 @@ public class BoardMainCotroller {
   public String boardmenu(Map<String, Object> model, HttpSession session) {
     List<BoardListDto> list = boardAdminService.getBoardMenu();
     model.put("menu", list);
-    MemberDto memberDto = new MemberDto();
-    memberDto.setId("testtest");
-    memberDto.setName("이종현");
-    memberDto.setEmail("test@test.com");
-    session.setAttribute("userInfo", memberDto);
     return "main";
   }
 

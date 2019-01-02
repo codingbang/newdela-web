@@ -43,22 +43,21 @@ public class ReboardCotroller {
   }
 	
   @RequestMapping(value="write.bit", method=RequestMethod.GET)
-  public String write(@RequestParam Map<String, String> param, Model model) {
+  public String write(@RequestParam Map<String, String> param, HttpSession session, Model model) {
     List<BoardListDto> menuList = commonService.getBoardMenu();
     model.addAttribute("menu", menuList);
     return "reboard/write";
   }
   
   @RequestMapping(value="write.bit", method=RequestMethod.POST)
-  public String write(ReboardDto reboardDto, HttpSession session, @RequestParam Map<String, String> param, Model model) {
+  public String write(ReboardDto reboardDto, String content, String subject, HttpSession session, @RequestParam Map<String, String> param, Model model) {
     List<BoardListDto> menuList = commonService.getBoardMenu();
     model.addAttribute("menu", menuList);
-    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+    MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
+    System.out.println("세션?"+memberDto.getM_code());
     if (memberDto != null) {
-      reboardDto.setId(memberDto.getId());
-      reboardDto.setName(memberDto.getName());
-      reboardDto.setEmail(memberDto.getEmail());
-      
+      reboardDto.setMcode(memberDto.getM_code());
+      System.out.println(reboardDto.getMcode());
       int seq = reboardService.WriteArticle(reboardDto);
       if (seq != 0) {
         model.addAttribute("wseq", seq);
@@ -103,9 +102,7 @@ public class ReboardCotroller {
     model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
-      reboardDto.setId(memberDto.getId());
-      reboardDto.setName(memberDto.getName());
-      reboardDto.setEmail(memberDto.getEmail());
+      reboardDto.setMcode(memberDto.getM_code());
       
       int seq = reboardService.replyArticle(reboardDto);
       if (seq != 0) {

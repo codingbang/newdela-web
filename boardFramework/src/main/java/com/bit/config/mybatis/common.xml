@@ -40,4 +40,10 @@
     </if>
   </select>
   
+  <select id="getMember" parameterType="int" resultType="memberDto">
+    SELECT *
+    FROM member
+    WHERE m_code = #{mcode}
+  </select>
+  
 </mapper>

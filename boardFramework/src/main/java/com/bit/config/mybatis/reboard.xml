@@ -7,15 +7,15 @@
   
   <insert id="WriteArticle" parameterType="reboardDto">
     INSERT  ALL
-      INTO board (seq, name, id, email, subject, content, hit, logtime, bcode)
-      VALUES (#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+      INTO board (seq, subject, content, hit, logtime, bcode, m_code)
+      VALUES (#{seq}, #{subject}, #{content}, 0, sysdate, #{bcode}, #{mcode})
       INTO reboard (rseq, seq, ref, lev, step, pseq, reply)
       VALUES (reboard_rseq.nextval, #{seq}, #{ref}, 0, 0, 0, 0)
     SELECT * FROM dual
   </insert>
   
   <select id="viewArticle" parameterType="int" resultType="reboardDto">
-    SELECT b.seq, b.name, b.id, b.email, b.subject, b.content, b.hit, b.bcode, b.logtime, r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply
+    SELECT b.seq, b.content, b.hit, b.bcode, b.logtime, b.m_code, r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply
 		FROM board b, reboard r
 		WHERE b.seq = r.seq
 		AND b.seq = #{seq}
@@ -24,7 +24,7 @@
   <select id="listArticle" parameterType="map" resultType="reboardDto">
     SELECT temp2.*
 		FROM (SELECT rownum rnm, temp.*
-		      FROM (SELECT b.seq, b.name, b.id, b.email, b.subject, b.content, b.hit, b.bcode,
+		      FROM (SELECT b.seq, b.subject, b.content, b.hit, b.bcode, b.m_code,
 		                   DECODE(TO_CHAR(b.logtime, 'yymmdd'), TO_CHAR(SYSDATE, 'yymmdd'), 
 		                          TO_CHAR(b.logtime, 'hh24:mi:ss'), TO_CHAR(b.logtime, 'yy.mm.dd')) logtime, 
 		                   r.rseq, r.REF, r.lev, r.step, r.pseq, r.reply
@@ -54,8 +54,8 @@
   
   <insert id="replyArticle" parameterType="reboardDto">
     INSERT  ALL
-      INTO board (seq, name, id, email, subject, content, hit, logtime, bcode)
-      VALUES (#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+      INTO board (seq, content, hit, logtime, bcode, m_cdoe)
+      VALUES (#{seq}, #{subject}, #{content}, 0, sysdate, #{bcode}, #{mcode})
       INTO reboard (rseq, seq, ref, lev, step, pseq, reply)
       VALUES (reboard_rseq.nextval, #{seq}, #{ref}, #{lev}+1, #{step}+1, #{pseq}, 0)
     SELECT * FROM dual

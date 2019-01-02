@@ -26,6 +26,17 @@
 <link rel="stylesheet" href="${root}/css/modal_info.css" type="text/css">
 <script type="text/javascript" src="${root}/js/board.js"></script>
 <script type="text/javascript" src="${root}/js/header.js"></script>
+
+<script>
+$(document).ready(function() {
+	
+	$(document).on("click", "#logoutaaa", function(){
+		$("#logoutForm").submit();
+	});
+	
+});
+
+</script>
 </head>
 
 <body>
@@ -89,8 +100,9 @@
 		
 		<c:choose>
 			<c:when test="${loginUser !=null}">
+				<form id="logoutForm" action="/member/logout" method="get">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/member/logout" data-toggle="modal" data-target="#logoutModal">로그아웃(${loginUser.m_name})</a></li>
+					<li><a id="logout" href="#" data-toggle="modal" data-target="#logoutModal">로그아웃(${loginUser.m_name})</a></li>
 					
 					<!-- Modal -->
 					<div class="modal fade" id="logoutModal" role="dialog">
@@ -107,7 +119,7 @@
 						        <p>로그인 페이지로 이동합니다</p>
 						
 						        <div class="row info-btn">
-						            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='loginForm'" >Home</button>
+						            <button id="logoutaaa" type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='loginForm'" >Home</button>
 						        </div>
 						    </div>
       
@@ -121,6 +133,7 @@
 						</ul>
 					</li>
 				</ul>
+				</form>
 			</c:when>
 			<c:otherwise>
 				<ul class="nav navbar-nav navbar-right">
