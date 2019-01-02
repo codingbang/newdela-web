@@ -51,7 +51,7 @@
 						function() {
 							$('#pg').val('1');
 							$('#key').val("id");
-							$('#word').val('${userInfo.id}');
+							$('#word').val('${userInfo.m_id}');
 							$("#commonForm").attr("method", "get").attr(
 									"action", listpath).submit();
 						});
@@ -120,7 +120,7 @@
 								<%-- <img src="${root }/img/board/blank.gif" height="1" width="${article.lev * 10 }"> --%>
 								<span class="posting" article-no="${article.seq }">${article.subject.replace("<","&lt;") }&nbsp;&nbsp;&nbsp;</span></a>
 							<td style="word-break: break-all;"><a href="javascript:;"
-								onClick="showSideView();" class="link_board_04">${article.name }</a></td>
+								onClick="showSideView();" class="link_board_04">${article.m_name }</a></td>
 
 							<td align="center" class="text_gray">${article.hit }</td>
 

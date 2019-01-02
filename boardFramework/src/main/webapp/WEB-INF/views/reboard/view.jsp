@@ -166,7 +166,7 @@ document.location.href="${root}/index.jsp";
           );
               
                             
-          if (mlist[i].id == '${userInfo.id}') {
+          if (mlist[i].m_id == '${userInfo.m_id}') {
             domElement.append(
                 $('<td>').attr("width", 120).attr("memo-mseq",  mlist[i].mseq).append(
                         $('<label>').attr("class", "viewMemoModifyBtn").append("수정")
@@ -213,10 +213,10 @@ document.location.href="${root}/index.jsp";
 			  for (var i = 0; i < len; i++) {
 
 				  output += '<tr>';
-				  output += ' <td width="150" height="40">' + mlist[i].name + '</td>';
+				  output += ' <td width="150" height="40">' + mlist[i].m_name + '</td>';
 				  output += ' <td>' + mlist[i].mcontent + '</td>';
 				  output += ' <td width="200">' + mlist[i].mtime + '</td>';
-				  if (mlist[i].id == '${userInfo.id}') {
+				  if (mlist[i].m_id == '${userInfo.m_id}') {
 					  output += '  <td width="120" memo-mseq="'+ mlist[i].mseq +'">';
 					  output += '    <label class="viewMemoModifyBtn">수정</label>';
 					  output += '    <label class="memoDeleteBtn">삭제</label>';
@@ -267,7 +267,7 @@ document.location.href="${root}/index.jsp";
 			<span>
 				<img class="writeBtn" src="${root}/img/board/btn_write_01.gif" width="64" height="22" border="0" align="absmiddle" alt="글쓰기">
 				<img class="replyBtn" src="${root}/img/board/btn_reply.gif" width="40" height="22" border="0" align="absmiddle" alt="답글">
-				<c:if test="${userInfo.id == article.id }">
+				<c:if test="${userInfo.m_id == article.m_id }">
 			  		<img class="modifyBtn" src="${root}/img/board/btn_modify.gif" border="0" align="absmiddle" alt="글수정">
 	      			<img class="deleteBtn" src="${root}/img/board/btn_delete.gif" border="0" align="absmiddle" alt="글삭제">
 				</c:if>
@@ -305,7 +305,7 @@ document.location.href="${root}/index.jsp";
 					<td width="100%" style="padding-left: 14px"><font class="stext">번호
 					:</font> <font class="text_commentnum">${article.seq }</font> &nbsp; <font
 						class="stext">글쓴이 :</font> <a href="javascript:;"
-						onClick="showSideView();" class="link_board_02">${member.name }</a><br>
+						onClick="showSideView();" class="link_board_02">${article.m_name }</a><br>
 					</td>
 					<td style="padding-right: 14px" nowrap class="stext">조회 : <font
 						class="text_commentnum">${article.hit }</font> &nbsp; 스크랩 : <font

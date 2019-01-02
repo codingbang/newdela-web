@@ -174,20 +174,23 @@ public class MemberCotroller {
   }
 
   @RequestMapping(value = "/member/loginForm")
-  public String loginForm() {
-
+  public String loginForm(Model model) {
+    List<BoardListDto> list = commonService.getBoardMenu();
+    model.addAttribute("menu", list);
     return "member/loginForm";
   }
 
   @RequestMapping(value = "/member/login", method = RequestMethod.POST)
-  public String login(String m_id, String m_pwd, HttpSession session) {
+  public String login(String m_id, String m_pwd, HttpSession session, Model model) {
     Map<String, Object> params = new HashMap<String, Object>();
     params.put("m_id", m_id);
     params.put("m_pwd", m_pwd);
     MemberDto memberDto = memberService.findByIdPassword(params);
 
     if (memberDto != null) {
-      session.setAttribute("loginUser", memberDto);
+      session.setAttribute("userInfo", memberDto);
+      List<BoardListDto> list = commonService.getBoardMenu();
+      model.addAttribute("menu", list);
       return "member/list";
     } else {
       session.invalidate();

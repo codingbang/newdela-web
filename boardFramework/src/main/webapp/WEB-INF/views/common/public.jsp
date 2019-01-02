@@ -99,10 +99,10 @@ $(document).ready(function() {
 		</ul>
 		
 		<c:choose>
-			<c:when test="${loginUser !=null}">
+			<c:when test="${userInfo !=null}">
 				<form id="logoutForm" action="/member/logout" method="get">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="#" data-toggle="modal" data-target="#logoutModal">로그아웃(${loginUser.m_name})</a></li>
+					<li><a id="logout" href="#" data-toggle="modal" data-target="#logoutModal">로그아웃(${userInfo.m_name})</a></li>
 					
 					<!-- Modal -->
 					<div class="modal fade" id="logoutModal" role="dialog">
