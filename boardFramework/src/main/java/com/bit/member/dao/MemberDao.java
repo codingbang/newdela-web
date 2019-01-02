@@ -16,4 +16,5 @@ public interface MemberDao {
   
   MemberDto findByIdPassword(Map<String, Object> params);
   
+  int checkId(String m_id);
 }

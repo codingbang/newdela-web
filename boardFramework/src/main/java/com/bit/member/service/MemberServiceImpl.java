@@ -56,5 +56,11 @@ public class MemberServiceImpl implements MemberService {
     return sqlSession.getMapper(MemberDao.class).findByIdPassword(params);
   }
 
+  @Override
+  public int checkId(String m_id) {
+    int check = sqlSession.getMapper(MemberDao.class).checkId(m_id);
+    return check;
+  }
+
 
 }

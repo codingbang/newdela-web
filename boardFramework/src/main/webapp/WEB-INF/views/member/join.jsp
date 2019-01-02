@@ -134,7 +134,33 @@ $(document).ready(function() {
 		$("#postTbody").append(strHtml);
 	}//end makePostList
 	
-	
+	$("#m_id").blur(function(){
+	  var m_id = $('#m_id').val();
+	  $.ajax({
+	    url : '${root}/member/idCheck?m_id='+ m_id,
+		type: 'get',
+		success: function(data){
+		  console.log(data);
+		  
+		  if(data == 1){
+		    $("#id_check").text("사용중 아이디입니다! ");
+		    $("#id_check").css("color", "red");
+					    
+		  } else{
+		    if(m_id=""){
+		      $("#id_check").text("아이디를 입력해주세요! ");
+		      $("#id_check").css("color", "red");
+		    } else{
+		      $("#id_check").text("입력 가능한 아이디입니다! ");
+		      $("#id_check").css("color", "blue");
+		    }
+		    
+		  }
+		  
+		}
+
+	  })
+	});
 	
 	//가입하기 버튼
 	$("#joinBtn").click(function() {
@@ -205,6 +231,7 @@ $(document).ready(function() {
                             <div class="col-lg-11">
                                 <input type="text" class="form-control" id="m_id" name="m_id" placeholder="아이디">
                             </div>
+                            <div id="id_check" align="center"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-1 control-label">이름</label>

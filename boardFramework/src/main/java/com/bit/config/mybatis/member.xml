@@ -55,7 +55,11 @@
 	WHERE m_code = #{m_code}
   </select>
 
-
+	
+	<select id="checkId" parameterType="String" resultType="int">
+    select count(*) from members
+    where m_id=#{m_id}
+  </select>
 
 
 </mapper>

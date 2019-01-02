@@ -10,5 +10,6 @@ public interface MemberService {
   MemberDto getMember(int m_code);
   int deleteMember(int m_code);
   MemberDto findByIdPassword(Map<String, Object> params);
+  int checkId(String m_id);
   
 }

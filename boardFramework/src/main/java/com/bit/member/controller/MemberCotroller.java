@@ -202,4 +202,10 @@ public class MemberCotroller {
     return "redirect:/";
   }
 
+  @ResponseBody
+  @RequestMapping(value = "/member/idCheck", method = RequestMethod.GET)
+  public int checkId(@RequestParam("m_id") String m_id) {
+      return memberService.checkId(m_id);
+  }
+  
 }
