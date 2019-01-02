@@ -201,7 +201,7 @@ $(document).ready(function() {
 			data : parameter,
 			success : function(data) {
 				if(data.isSuccess == 'true') {
-					location.href = "${root}/member/listform";
+					location.href = "${root}/member/loginForm";
 					//$(location).attr('href', 'member/list');
 				}
 			}
