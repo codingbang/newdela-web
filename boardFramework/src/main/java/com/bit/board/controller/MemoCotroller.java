@@ -23,9 +23,7 @@ public class MemoCotroller {
   public @ResponseBody String write(@RequestBody MemoDto memoDto, HttpSession session) {
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
-      memoDto.setId(memberDto.getId());
-      memoDto.setName(memberDto.getName());
-      
+      memoDto.setMcode(memberDto.getM_code());
       int cnt = memoService.writeMemo(memoDto);
     }
     String memolist = memoService.listMemo(memoDto.getSeq());

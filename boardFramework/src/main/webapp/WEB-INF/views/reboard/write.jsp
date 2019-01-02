@@ -61,6 +61,7 @@ function writeArticle(){
 				<input type="hidden" name="pg" value="1">
 				<input type="hidden" name="key" value="">
 				<input type="hidden" name="word" value="">
+				
 				<table border="0" cellpadding="5" cellspacing="0" width="630" style="table-layout: fixed">
 					<tr valign="top">
 						<td width="95" nowrap style="padding-left: 8px; padding-top: 13px; font-size: 11pt;">

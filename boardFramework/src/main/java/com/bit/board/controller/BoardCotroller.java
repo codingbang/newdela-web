@@ -55,13 +55,12 @@ public class BoardCotroller {
     List<BoardListDto> menuList = commonService.getBoardMenu();
     model.addAttribute("menu", menuList);
     
-    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+    MemberDto memberDto = (MemberDto) session.getAttribute("loginUser");
     if (memberDto != null) {
-      boardDto.setId(memberDto.getId());
-      boardDto.setName(memberDto.getName());
-      boardDto.setEmail(memberDto.getEmail());
+      boardDto.setMcode(memberDto.getM_code());
       
       int seq = boardService.WriteArticle(boardDto);
+      
       if (seq != 0) {
         model.addAttribute("wseq", seq);
       } else {
@@ -79,9 +78,14 @@ public class BoardCotroller {
     List<BoardListDto> menuList = commonService.getBoardMenu();
     model.addAttribute("menu", menuList);
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+    
+    
     if (memberDto != null) {
+      int mcode = memberDto.getM_code();
+      MemberDto member = commonService.getMember(mcode);
       BoardDto boardDto = boardService.viewArticle(seq);
       model.addAttribute("article",boardDto);
+      model.addAttribute("member",member);
     }
     return "board/view";
         

@@ -305,7 +305,7 @@ document.location.href="${root}/index.jsp";
 					<td width="100%" style="padding-left: 14px"><font class="stext">번호
 					:</font> <font class="text_commentnum">${article.seq }</font> &nbsp; <font
 						class="stext">글쓴이 :</font> <a href="javascript:;"
-						onClick="showSideView();" class="link_board_02">${article.name }</a><br>
+						onClick="showSideView();" class="link_board_02">${member.name }</a><br>
 					</td>
 					<td style="padding-right: 14px" nowrap class="stext">조회 : <font
 						class="text_commentnum">${article.hit }</font> &nbsp; 스크랩 : <font

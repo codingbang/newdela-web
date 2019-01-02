@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 
 			if (currentPage < totalPage) {
-				strHtml += '		<li><a class="mvpage" move-page-no="'+ (currentPage+1) +'"><span">&rsaquo;</span></a></li>';
+				strHtml += '		<li><a class="mvpage" move-page-no="'+ (currentPage+1) +'"><span>&rsaquo;</span></a></li>';
 			}
 
 			if (endPage < totalPage) {
@@ -347,8 +347,8 @@ $(document).ready(function() {
 						</thead>
 						<tbody id="postTbody">
 							<tr>
-								<td>우편번호가 나오는 곳</td>
-								<td>주소가 나오는 곳</td>
+								<td></td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>

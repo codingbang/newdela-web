@@ -2,18 +2,18 @@ package com.bit.member.dao;
 
 import java.util.List;
 import java.util.Map;
-import com.bit.member.model.MembersDto;
+import com.bit.member.model.MemberDto;
 
 public interface MemberDao {
   
-  int insertMembers(MembersDto membersDto);
+  int insertMembers(MemberDto membersDto);
   
-  List<MembersDto> listMembers();
+  List<MemberDto> listMembers();
 
   int deleteMember(int m_code);
   
-  MembersDto getMember(int m_code);
+  MemberDto getMember(int m_code);
   
-  MembersDto findByIdPassword(Map<String, Object> params);
+  MemberDto findByIdPassword(Map<String, Object> params);
   
 }

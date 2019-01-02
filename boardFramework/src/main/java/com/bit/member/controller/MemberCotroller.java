@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.board.admin.model.BoardListDto;
 import com.bit.common.service.CommonService;
-import com.bit.member.model.MembersDto;
+import com.bit.member.model.MemberDto;
 import com.bit.member.model.PostDto;
 import com.bit.member.service.MemberService;
 import com.google.gson.Gson;
 
 
 @Controller
-public class MembersCotroller {
+public class MemberCotroller {
 
   @Autowired
   private CommonService commonService;
@@ -45,7 +45,7 @@ public class MembersCotroller {
   }
   
   @RequestMapping(value="member", method=RequestMethod.POST, headers= {"Content-type=application/json"} )
-  public @ResponseBody Map<String, String> joinAction(@RequestBody MembersDto membersDto,  Model model) {
+  public @ResponseBody Map<String, String> joinAction(@RequestBody MemberDto membersDto,  Model model) {
     List<BoardListDto> list = commonService.getBoardMenu();
     model.addAttribute("menu", list);
     int cnt = memberService.insertMembers(membersDto);
@@ -75,7 +75,7 @@ public class MembersCotroller {
   public String getMemberView(int m_code, Model model) {
     List<BoardListDto> list = commonService.getBoardMenu();
     model.addAttribute("menu", list);
-    MembersDto membersDto =  memberService.getMember(m_code);
+    MemberDto membersDto =  memberService.getMember(m_code);
     model.addAttribute("member",membersDto);
     return "member/view";
   }
@@ -93,7 +93,7 @@ public class MembersCotroller {
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
   public static final String ZIPCODE_API_URL = "https://biz.epost.go.kr/KpostPortal/openapi";
   
-  @RequestMapping(value = "postcodelist", method = RequestMethod.POST, produces = "text/planin;charset=UTF-8")
+  @RequestMapping(value = "postcodelist", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
   public @ResponseBody String postCodeList(@RequestParam Map<String, String> param) throws Exception {
     
       Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -184,10 +184,10 @@ public class MembersCotroller {
     Map<String, Object> params = new HashMap<String, Object>();
     params.put("m_id", m_id);
     params.put("m_pwd", m_pwd);
-    MembersDto membersDto = memberService.findByIdPassword(params);
+    MemberDto memberDto = memberService.findByIdPassword(params);
 
-    if (membersDto != null) {
-      session.setAttribute("loginUser", membersDto);
+    if (memberDto != null) {
+      session.setAttribute("loginUser", memberDto);
       return "member/list";
     } else {
       session.invalidate();
@@ -195,9 +195,11 @@ public class MembersCotroller {
     }
   }
   
-  @RequestMapping("/member/logout")
-  public void logout(HttpSession session) {
+  @RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+  public String logout(HttpSession session) {
     session.invalidate();
+    
+    return "redirect:/";
   }
 
 }

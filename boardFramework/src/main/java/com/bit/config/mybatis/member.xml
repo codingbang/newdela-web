@@ -5,7 +5,7 @@
   
 <mapper namespace="com.bit.member.dao.MemberDao"> 
 
-<resultMap type="membersDto" id="membersMap">
+<resultMap type="memberDto" id="memberMap">
     <id column="m_code" property="m_code"/>
     <result column="m_id" property="m_id"/>
     <result column="m_name" property="m_name"/>
@@ -21,13 +21,13 @@
   </resultMap>
 
 
-  <insert id="insertMembers" parameterType="membersDto">
+  <insert id="insertMembers" parameterType="memberDto">
     INSERT
       INTO members (m_code, m_id, m_name, m_pwd, m_email, m_birth, m_gender, m_tel, m_postcode, m_address1, m_address2, m_regdate)
       VALUES (members_m_code.nextval, #{m_id}, #{m_name}, #{m_pwd}, #{m_email}, #{m_birth}, #{m_gender}, #{m_tel}, #{m_postcode}, #{m_address1}, #{m_address2}, sysdate)
   </insert>
   
-  <select id="listMembers" resultType="membersDto">
+  <select id="listMembers" resultType="memberDto">
     SELECT m_code, m_id, m_name, m_tel, to_char(m_regdate,'yyyy-mm-dd') as m_regdate
     FROM members
     ORDER BY m_regdate
@@ -42,14 +42,14 @@
   
 
 
- 	<select id="findByIdPassword" resultType="membersDto" parameterType="map">
+ 	<select id="findByIdPassword" resultType="memberDto" parameterType="map">
     select m_code, m_id, m_name, m_pwd, m_email, m_regdate
     from members
     where m_id=#{m_id} and m_pwd=#{m_pwd}
   </select>
   
   
-  <select id="getMember" parameterType="int" resultType="membersDto">
+  <select id="getMember" parameterType="int" resultType="memberDto">
     SELECT m_code, m_id, m_name, m_pwd, m_email, m_birth, m_gender, m_tel, m_postcode, m_address1, m_address2, m_regdate
 	FROM members
 	WHERE m_code = #{m_code}

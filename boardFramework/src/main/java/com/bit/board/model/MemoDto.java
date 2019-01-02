@@ -8,6 +8,7 @@ public class MemoDto {
   private String name;
   private String mcontent;
   private String mtime;
+  private int mcode;
   
   public int getMseq() {
     return mseq;
@@ -44,6 +45,13 @@ public class MemoDto {
   }
   public void setMtime(String mtime) {
     this.mtime = mtime;
+  }
+  public int getMcode() {
+    return mcode;
+  }
+  public void setMcode(int mcode) {
+    this.mcode = mcode;
   }  
+  
 }
 

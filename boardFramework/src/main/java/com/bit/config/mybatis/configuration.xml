@@ -15,7 +15,7 @@
     <typeAlias type="com.bit.board.model.MemoDto" alias="memoDto"/>
     <typeAlias type="com.bit.board.model.ReboardDto" alias="reboardDto"/>
     
-    <typeAlias type="com.bit.member.model.MembersDto" alias="membersDto"/>
+    <typeAlias type="com.bit.member.model.MemberDto" alias="memberDto"/>
   </typeAliases>
   
 </configuration>

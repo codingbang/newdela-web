@@ -7,8 +7,8 @@
 
   <insert id="WriteArticle" parameterType="albumDto">
     INSERT  ALL
-      INTO board (seq, name, id, email, subject, content, hit, logtime, bcode)
-      VALUES (#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+      INTO board (seq, subject, content, hit, logtime, bcode, m_code)
+      VALUES (#{seq}, #{subject}, #{content}, 0, sysdate, #{bcode}, #{mcode})
       
       INTO album (aseq, seq, orign_picture, save_picture, savefolder, type)
       VALUES (album_aseq.nextval, #{seq}, #{orignPicture}, #{savePicture}, #{saveFolder}, 0)

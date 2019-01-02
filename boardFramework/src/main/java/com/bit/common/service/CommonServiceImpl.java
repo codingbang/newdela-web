@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bit.board.admin.dao.BoardAdminDao;
 import com.bit.board.admin.model.BoardListDto;
 import com.bit.common.dao.CommonDao;
+import com.bit.member.model.MemberDto;
 import com.bit.util.BoardConstance;
 import com.bit.util.PageNavigation;
 
@@ -40,6 +41,11 @@ public class CommonServiceImpl implements CommonService {
   @Override
   public List<BoardListDto> getBoardMenu() {
     return sqlSession.getMapper(BoardAdminDao.class).getBoardMenu();
+  }
+  
+  @Override
+  public MemberDto getMember(int mcode) {
+    return sqlSession.getMapper(CommonDao.class).getMember(mcode);
   }
 
 }

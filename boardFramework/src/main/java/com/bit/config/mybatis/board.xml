@@ -6,12 +6,12 @@
 <mapper namespace="com.bit.board.dao.BoardDao"> 
 
   <insert id="WriteArticle" parameterType="boardDto">
-    INSERT INTO board (seq, name, id, email, subject, content, hit, logtime, bcode)
-      VALUES (#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0, sysdate, #{bcode})
+    INSERT INTO board (seq, subject, content, hit, logtime, bcode, m_code)
+      VALUES (#{seq}, #{subject}, #{content}, 0, sysdate, #{bcode}, #{mcode})
   </insert>
   
   <select id="viewArticle" parameterType="int" resultType="boardDto">
-    SELECT seq, name, id, email, subject, content, hit, bcode, logtime
+    SELECT seq, subject, content, hit, bcode, logtime
     FROM board
     WHERE seq = #{seq}
   </select>
@@ -19,7 +19,7 @@
   <select id="listArticle" parameterType="map" resultType="boardDto">
     SELECT temp2.*
     FROM (SELECT rownum rnm, temp.*
-          FROM (SELECT seq, name, id, email, subject, content, hit, bcode,
+          FROM (SELECT seq, subject, content, hit, bcode,
                        DECODE(TO_CHAR(logtime, 'yymmdd'), TO_CHAR(SYSDATE, 'yymmdd'), 
                               TO_CHAR(logtime, 'hh24:mi:ss'), TO_CHAR(logtime, 'yy.mm.dd')) logtime
                 FROM board
