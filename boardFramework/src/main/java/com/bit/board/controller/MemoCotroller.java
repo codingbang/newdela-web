@@ -24,6 +24,8 @@ public class MemoCotroller {
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
       memoDto.setMcode(memberDto.getM_code());
+      memoDto.setId(memberDto.getM_id());
+      memoDto.setName(memberDto.getM_name());
       int cnt = memoService.writeMemo(memoDto);
     }
     String memolist = memoService.listMemo(memoDto.getSeq());
@@ -40,6 +42,9 @@ public class MemoCotroller {
   public @ResponseBody String modify(@RequestBody MemoDto memoDto, HttpSession session) {
     MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
     if (memberDto != null) {
+      memoDto.setMcode(memberDto.getM_code());
+      memoDto.setId(memberDto.getM_id());
+      memoDto.setName(memberDto.getM_name());
       int cnt = memoService.modifyMemo(memoDto);
     }
     String memolist = memoService.listMemo(memoDto.getSeq());
