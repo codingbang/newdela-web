@@ -134,6 +134,7 @@ $(document).ready(function() {
 		$("#postTbody").append(strHtml);
 	}//end makePostList
 	
+	// 아이디 체크
 	$("#m_id").blur(function(){
 	  var m_id = $('#m_id').val();
 	  $.ajax({
@@ -182,6 +183,7 @@ $(document).ready(function() {
 		};
 		var parameter = JSON.stringify($("#joinForm").serializeObject());
 		
+		// 패스워드 체크
 		var password1 = $("#m_pwd").val();
 		var password2 = $("#m_pwd2").val();
 
