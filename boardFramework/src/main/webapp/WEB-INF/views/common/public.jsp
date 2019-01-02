@@ -98,6 +98,7 @@ $(document).ready(function() {
 			</li>
 		</ul>
 		
+		<!-- header 로그인 여부 -->
 		<c:choose>
 			<c:when test="${userInfo !=null}">
 				<form id="logoutForm" action="/member/logout" method="get">
@@ -116,7 +117,7 @@ $(document).ready(function() {
 						    <!-- body -->
 						    <div class="info-body">
 						
-						        <p>로그인 페이지로 이동합니다</p>
+						        <p>Home 으로 이동합니다! </p>
 						
 						        <div class="row info-btn">
 						            <button id="logoutaaa" type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='loginForm'" >Home</button>
